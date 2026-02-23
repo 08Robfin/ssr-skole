@@ -22,3 +22,15 @@ app.get('/her', (req, res) => {
         <p>Og her er en paragraf</p>
     `);
 });
+
+app.get('/elever', (req, res) => {
+    res.send(`
+        <h1>Elever 2ITB</h1>
+        <ul>
+            <li>Carmen</li>
+            <li>Robin</li>
+            <li>Helle</li>
+            <li>Daniel</li>
+        </ul>
+    `);
+});
