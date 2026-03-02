@@ -5,6 +5,6 @@ CREATE TABLE users (
 );
 
 INSERT INTO users (name) VALUES
-    ('Joe Biden'),
-    ('Donald Trump'),
-    ('Kamala Harris');
+    ('Jette'),
+    ('Carmen'),
+    ('Robin');
