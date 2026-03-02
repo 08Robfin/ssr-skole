@@ -1,0 +1,25 @@
+{
+  "name": "ssr-skole-main",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/08Robfin/ssr-skole.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/08Robfin/ssr-skole/issues"
+  },
+  "homepage": "https://github.com/08Robfin/ssr-skole#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14",
+    "pg": "^8.19.0"
+  }
+}
