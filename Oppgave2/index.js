@@ -48,3 +48,10 @@ app.get('/deltagere-2', async (req, res) => {
     html += "</ul>"
     res.send(html);
 });
+
+app.get('/deltagere-json', async (req, res) => {
+    const result = await pool.query('SELECT * FROM users');
+    res.json(result.rows);
+});
+
+app.use(express.static('public'));
