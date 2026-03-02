@@ -74,3 +74,22 @@ app.get('/bilmerker', async (req, res) => {
     html += "</ul>"
     res.send(html);
 });
+
+app.get('/skuespillere-og-filmer', async (req, res) => {
+    const result = await pool.query('SELECT skuespillere.navn, filmer.tittel FROM skuespillere JOIN skuespiller_i_film ON skuespillere.id = skuespiller_i_film.skuespiller_id JOIN filmer ON skuespiller_i_film.film_id = filmer.id');
+
+    let html = "<h1>Skuespillere og filmer</h1>"
+    html += "<ul>"
+
+    for( const row of result.rows ) {
+        html += "</li><li>" + row.navn + " spiller i " + row.tittel + "</li>"
+    }
+
+    html += "</ul>"
+    res.send(html);
+});
+
+app.get('/skuespillere-og-filmer-json', async (req, res) => {
+    const result = await pool.query('SELECT skuespillere.navn, filmer.tittel FROM skuespillere JOIN skuespiller_i_film ON skuespillere.id = skuespiller_i_film.skuespiller_id JOIN filmer ON skuespiller_i_film.film_id = filmer.id');
+    res.json(result.rows);
+});

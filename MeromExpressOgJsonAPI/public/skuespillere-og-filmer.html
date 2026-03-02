@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Skuespillere fra JSON</h1>
+    <ul id="min-liste"></ul>
+
+    <script>
+        fetch('/skuespillere-og-filmer-json')
+            .then(res => res.json())
+            .then(data => {
+                let html = "";
+                for(let rad of data) {
+                    html += "<li>" + rad.navn + " - " + rad.tittel + "</li>";
+                }
+                document.getElementById('min-liste').innerHTML = html;
+            });
+    </script>
+</body>
+</html>
