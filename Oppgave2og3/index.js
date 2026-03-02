@@ -54,6 +54,11 @@ app.get('/deltagere-json', async (req, res) => {
     res.json(result.rows);
 });
 
+app.get('/bilmerker-json', async (req, res) => {
+    const result = await pool.query('SELECT * FROM bilmerker');
+    res.json(result.rows);
+});
+
 app.use(express.static('public'));
 
 app.get('/bilmerker', async (req, res) => {
