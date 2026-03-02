@@ -8,3 +8,13 @@ INSERT INTO users (name) VALUES
     ('Jette'),
     ('Carmen'),
     ('Robin');
+
+    CREATE TABLE bilmerker (
+    id SERIAL PRIMARY KEY,
+    merke VARCHAR(100)
+);
+
+INSERT INTO bilmerker (merke) VALUES
+    ('Toyota'),
+    ('Honda'),
+    ('Tesla');
