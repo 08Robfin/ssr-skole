@@ -4,6 +4,7 @@ const express = require('express');
 
 // Deretter lager vi en ny instans av Express:
 const app = express();
+app.use(express.json());
 
 // Vi setter opp en enkel "rute" (route) som svarer på
 // forespørsler til rotkatalogen, /:
@@ -15,10 +16,14 @@ app.get('/api', (req, res) => {
     res.json({ message: 'Hello, World!' });
 });
 
+
+
 // Så starter vi serveren, som nå lytter på port 3000:
 app.listen(3000, () => {
     console.log('Server listening on port 3000');
 });
+
+
 
 // Først refererer vi til driveren (som ligger i node_modules)
 const { Pool } = require('pg');
@@ -29,6 +34,16 @@ const pool = new Pool({
   password: 'mysecretpassword',
   host: 'localhost',
   port: 5432,
+});
+
+app.post('/deltagere', async (req, res) => {
+    const data = req.body;
+    console.log('Lagrer deltager: ', data)
+    const query = 'INSERT INTO users (name) VALUES ($1)';
+    const values = [data.name];
+    await pool.query(query, values);
+    console.log('Lagret deltager: ', data)
+    res.send('Data lagret');
 });
 
 app.get('/deltagere-2', async (req, res) => {
