@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Skuespillere</h1>
+
+    <ul id="skuespillere">
+        <li>Henter data...</li>
+    </ul>
+
+    <p>
+        <input id="navn" placeholder="Navn på skuespiller" type="text">
+        <button id="add">Legg inn ny skuespiller</button>
+    </p>
+
+    <script type="module">
+        async function hentData() {
+            const response = await fetch('/skuespillere-json');
+            const data = await response.json();
+            let list = document.getElementById('skuespillere');
+            list.innerHTML = '';
+            data.forEach(row => {
+                let li = document.createElement('li');
+                li.textContent = row.navn;
+                list.appendChild(li);
+            });
+        }
+
+        async function sendData(navn) {
+            await fetch('/skuespillere', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ navn: navn })
+            });
+        }
+
+        document.getElementById('add')
+            .addEventListener('click', async () => {
+                const navn = document.getElementById('navn').value;
+                await sendData(navn);
+                await hentData();
+                document.getElementById('navn').value = '';
+            });
+
+        hentData();
+    </script>
+</body>
+</html>

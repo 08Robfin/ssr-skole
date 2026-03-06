@@ -108,3 +108,16 @@ app.get('/skuespillere-og-filmer-json', async (req, res) => {
     const result = await pool.query('SELECT skuespillere.navn, filmer.tittel FROM skuespillere JOIN skuespiller_i_film ON skuespillere.id = skuespiller_i_film.skuespiller_id JOIN filmer ON skuespiller_i_film.film_id = filmer.id');
     res.json(result.rows);
 });
+
+app.get('/skuespillere-json', async (req, res) => {
+    const result = await pool.query('SELECT * FROM skuespillere');
+    res.json(result.rows);
+});
+
+app.post('/skuespillere', async (req, res) => {
+    const data = req.body;
+    console.log('Lagrer skuespiller: ', data);
+    await pool.query('INSERT INTO skuespillere (navn) VALUES ($1)', [data.navn]);
+    console.log('Lagret skuespiller: ', data);
+    res.send('Data lagret');
+});

@@ -7,9 +7,10 @@
     <button id="add">Legg inn ny deltager</button>
 </p>
 
-<script>fetch('/deltagere-json')
-    .then( response => response.json() )
-    .then(data => {
+<script type="module">
+    async function hentData() {
+        const response = await fetch('/deltagere-json');
+        const data = await response.json();
         let list = document.getElementById('deltagere');
         list.innerHTML = '';
         data.forEach(row => {
@@ -17,28 +18,28 @@
             li.textContent = row.name;
             list.appendChild(li);
         });
-    });</script>
-
-<script type="module">
-    function getUserName() {
-        const inputElement = document.getElementById('name');
-        return inputElement.value;
     }
 
-    document.getElementById('add')
-        .addEventListener('click', async (event) => {
-            const userName = getUserName();
-            await sendData(userName);
-        });
-
     async function sendData(userName) {
-        const data = {name: userName};
-        const response = await fetch('/deltagere', {
+        const data = { name: userName };
+        await fetch('/deltagere', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
     }
+
+    function getUserName() {
+        return document.getElementById('name').value;
+    }
+
+    document.getElementById('add')
+        .addEventListener('click', async () => {
+            const userName = getUserName();
+            await sendData(userName);
+            await hentData();                          // Oppdaterer listen
+            document.getElementById('name').value = ''; // Tømmer input-feltet
+        });
+
+    hentData(); // Henter listen når siden lastes
 </script>
