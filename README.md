@@ -24,7 +24,7 @@ Server side rendering (SSR) betyr at HTMLen genereres på serveren og sendes fer
 - Oppgave 5 ✅
 
 ### Ta i mot og lagre data i Express
-- Oppgave 1 ❌
+- Oppgave 1 ✅
 - Oppgave 2 ❌
 - Oppgave 3 ❌
 
