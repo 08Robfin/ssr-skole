@@ -51,7 +51,18 @@ INSERT INTO skuespiller_i_film (film_id, skuespiller_id) VALUES
 (1, 1), (2, 1), (3, 1),
 (1, 2), (1, 3);         
 
+create table skuespillere (
+     id serial primary key,
+     navn varchar(100)
+);
+
 SELECT skuespillere.navn, filmer.tittel
 FROM skuespillere
 JOIN skuespiller_i_film ON skuespillere.id = skuespiller_i_film.skuespiller_id
 JOIN filmer ON skuespiller_i_film.film_id = filmer.id;
+
+
+insert into skuespillere (navn) values
+   ('Tom Cruise'),
+   ('Angelina Jolie'),
+   ('Brad Pitt');

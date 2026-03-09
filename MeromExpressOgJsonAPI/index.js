@@ -75,7 +75,6 @@ app.get('/bilmerker-json', async (req, res) => {
 });
 
 app.use(express.static('public'));
-
 app.get('/bilmerker', async (req, res) => {
     const result = await pool.query('SELECT * FROM bilmerker');
 
@@ -113,6 +112,7 @@ app.get('/skuespillere-json', async (req, res) => {
     const result = await pool.query('SELECT * FROM skuespillere');
     res.json(result.rows);
 });
+
 
 app.post('/skuespillere', async (req, res) => {
     const data = req.body;

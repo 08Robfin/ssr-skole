@@ -2,21 +2,28 @@
 <html>
 <body>
     <h1>Skuespillere</h1>
-
     <ul id="skuespillere">
         <li>Henter data...</li>
     </ul>
-
     <p>
-        <input id="navn" placeholder="Navn på skuespiller" type="text">
-        <button id="add">Legg inn ny skuespiller</button>
+        <input id="navn-skuespiller" placeholder="Navn på skuespiller" type="text">
+        <button id="ny-skuespiller">Legg inn ny skuespiller</button>
+    </p>
+
+    <h1>Filmer</h1>
+    <ul id="filmer">
+        <li>Henter data...</li>
+    </ul>
+    <p>
+        <input id="tittel-film" placeholder="Tittel på film" type="text">
+        <button id="ny-film">Legg inn ny film</button>
     </p>
 
     <script type="module">
-        async function hentData() {
-            const response = await fetch('/skuespillere-json');
-            const data = await response.json();
-            let list = document.getElementById('skuespillere');
+        async function hentSkuespillere() {
+            const resp = await fetch('http://localhost:3002/skuespillere');
+            const data = await resp.json();
+            const list = document.getElementById('skuespillere');
             list.innerHTML = '';
             data.forEach(row => {
                 let li = document.createElement('li');
@@ -25,23 +32,48 @@
             });
         }
 
-        async function sendData(navn) {
-            await fetch('/skuespillere', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ navn: navn })
+        async function hentFilmer() {
+            const resp = await fetch('http://localhost:3002/filmer');
+            const data = await resp.json();
+            const list = document.getElementById('filmer');
+            list.innerHTML = '';
+            data.forEach(row => {
+                let li = document.createElement('li');
+                li.textContent = row.tittel;
+                list.appendChild(li);
             });
         }
 
-        document.getElementById('add')
+        await hentSkuespillere();
+        await hentFilmer();
+
+        document.getElementById('ny-skuespiller')
             .addEventListener('click', async () => {
-                const navn = document.getElementById('navn').value;
-                await sendData(navn);
-                await hentData();
-                document.getElementById('navn').value = '';
+                const inputElement = document.getElementById('navn-skuespiller');
+                const navn = inputElement.value;
+                if (!navn) return;
+                await fetch('http://localhost:3002/skuespillere', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ navn: navn })
+                });
+                inputElement.value = '';
+                await hentSkuespillere();
             });
 
-        hentData();
+        document.getElementById('ny-film')
+            .addEventListener('click', async () => {
+                const inputElement = document.getElementById('tittel-film');
+                const tittel = inputElement.value;
+                if (!tittel) return;
+                await fetch('http://localhost:3002/filmer', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tittel: tittel })
+                });
+                inputElement.value = '';
+                await hentFilmer();
+            });
     </script>
 </body>
 </html>

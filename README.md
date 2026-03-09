@@ -29,4 +29,6 @@ Server side rendering (SSR) betyr at HTMLen genereres på serveren og sendes fer
 - Oppgave 3 ✅
 
 ### Automatisk CRUD-API vha PostGREST
-- Oppgave 1 ❌
+- Oppgave 1 ✅
+
+Da var alt gjort 😺✅
